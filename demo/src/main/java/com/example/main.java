@@ -15,9 +15,8 @@ public class main {
         // Intentar varias rutas posibles para el archivo CSV
         String[] possiblePaths = {
             "Datos.csv",                 // Directorio raíz
-            "demo/target/classes/com/example/Datos.csv",          // Directorio target
-            "./target/Datos.csv",        // Otra forma de referirse al directorio target
-            "../target/Datos.csv"        // En caso de que el ejecutable esté en un subdirectorio
+            "demo/target/classes/com/example/Datos.csv",          // segunda opción en dado caso no lea la primera
+
         };
 
         String filePath = null;
