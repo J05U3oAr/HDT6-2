@@ -12,15 +12,35 @@ public class main {
         Map<String, Pokemon> allPokemons = new HashMap<>();
         Map<String, Pokemon> userCollection = new HashMap<>();
 
-        // Ruta al archivo CSV
-        String filePath = "Datos.csv";
-        File file = new File(filePath);
-        
-        // Verificar si el archivo existe
-        if (!file.exists()) {
-            System.err.println("ERROR: El archivo '" + filePath + "' no existe.");
-            System.err.println("Ruta absoluta esperada: " + file.getAbsolutePath());
-            System.out.println("\nPor favor, verifica la ruta del archivo CSV e intenta de nuevo.");
+        // Intentar varias rutas posibles para el archivo CSV
+        String[] possiblePaths = {
+            "Datos.csv",                 // Directorio raíz
+            "demo/target/classes/com/example/Datos.csv",          // Directorio target
+            "./target/Datos.csv",        // Otra forma de referirse al directorio target
+            "../target/Datos.csv"        // En caso de que el ejecutable esté en un subdirectorio
+        };
+
+        String filePath = null;
+        File file = null;
+
+        // Buscar el archivo en las posibles rutas
+        for (String path : possiblePaths) {
+            file = new File(path);
+            if (file.exists()) {
+                filePath = path;
+                System.out.println("Archivo CSV encontrado en: " + file.getAbsolutePath());
+                break;
+            }
+        }
+
+        // Si no se encuentra el archivo, mostrar error
+        if (filePath == null) {
+            System.err.println("ERROR: No se encontró el archivo 'Datos.csv' en ninguna de las rutas esperadas.");
+            System.err.println("Rutas buscadas:");
+            for (String path : possiblePaths) {
+                System.err.println("- " + new File(path).getAbsolutePath());
+            }
+            System.out.println("\nPor favor, coloca el archivo CSV en una de estas ubicaciones e intenta de nuevo.");
             return;
         }
         
